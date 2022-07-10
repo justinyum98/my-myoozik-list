@@ -5,3 +5,5 @@ describe('Home', () => {
     cy.get('div').should('contain.text', 'Hello World');
   });
 });
+
+export {};
