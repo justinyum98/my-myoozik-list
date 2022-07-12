@@ -1,8 +1,8 @@
 describe('Home', () => {
-  it('should display Hello World', () => {
+  it('should display the app name', () => {
     cy.visit('/');
 
-    cy.get('div').should('contain.text', 'Hello World');
+    cy.get('h1').should('contain.text', 'My Myoozik List');
   });
 });
 
