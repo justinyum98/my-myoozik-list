@@ -1,10 +1,12 @@
-name: Build and test
+name: Build and test dev
 
 on:
   push:
-    branches: [ main, dev ]
+    branches:
+      - dev
   pull_request:
-    branches: [ main, dev ]
+    branches:
+      - dev
 
 jobs:
   build:
@@ -14,6 +16,8 @@ jobs:
     strategy:
       matrix:
         node-version: [16.x]
+
+    environment: preview
 
     steps:
       - uses: actions/checkout@v3
