@@ -1,5 +1,6 @@
 // This import is only needed when checking authentication status directly from getInitialProps
 // import auth0 from '../lib/auth0'
+import Image from 'next/image';
 import { useFetchUser } from '../lib/user';
 import Layout from '../components/layout';
 import { User } from '../interfaces';
@@ -15,7 +16,7 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
 
       <div>
         <h3>Profile (client rendered)</h3>
-        <img src={user.picture} alt="user picture" />
+        <Image src={user.picture} alt="user picture" />
         <p>nickname: {user.nickname}</p>
         <p>name: {user.name}</p>
       </div>

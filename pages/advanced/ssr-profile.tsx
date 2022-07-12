@@ -1,4 +1,5 @@
 import { GetServerSideProps } from 'next';
+import Image from 'next/image';
 
 // This import is only included in the server build, because it's only used by getServerSideProps
 import auth0 from '../../lib/auth0';
@@ -16,7 +17,7 @@ const Profile = ({ user }: ProfileProps) => {
 
       <div>
         <h3>Profile (server rendered)</h3>
-        <img src={user.picture} alt="user picture" />
+        <Image src={user.picture} alt="user picture" />
         <p>nickname: {user.nickname}</p>
         <p>name: {user.name}</p>
       </div>
