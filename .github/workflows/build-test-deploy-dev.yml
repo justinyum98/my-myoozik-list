@@ -16,7 +16,7 @@ jobs:
       matrix:
         node-version: [16.x]
 
-    environment: preview
+    environment: Preview
 
     steps:
       - name: Print SESSION_SECRET

@@ -16,7 +16,7 @@ jobs:
       matrix:
         node-version: [16.x]
 
-    environment: production
+    environment: Production
 
     steps:
       - uses: actions/checkout@v3
