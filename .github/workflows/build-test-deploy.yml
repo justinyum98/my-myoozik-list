@@ -1,26 +1,20 @@
-name: Build, test, and deploy push and PRs to dev
+name: Build, test, and deploy push and PRs to main
 
 on:
   push:
     branches:
-      - dev
+      - main
   pull_request:
     branches:
-      - dev
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [16.x]
-
-    environment: Preview
-
     steps:
-      - name: Print SESSION_SECRET
-        run: echo "$SESSION_COOKIE_SECRET"
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
@@ -46,6 +40,7 @@ jobs:
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          vercel-args: '--prod'
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID}}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID}}
           github-comment: true
