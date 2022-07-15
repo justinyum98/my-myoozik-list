@@ -16,7 +16,7 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
 
       <div>
         <h3>Profile (client rendered)</h3>
-        <Image src={user.picture} alt="user picture" />
+        <Image src={user.picture} alt="user picture" width={100} height={100} />
         <p>nickname: {user.nickname}</p>
         <p>name: {user.name}</p>
       </div>

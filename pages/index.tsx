@@ -26,7 +26,7 @@ const Home = () => {
       {user && (
         <>
           <h4>Rendered user info on the client</h4>
-          <Image src={user.picture} alt="user picture" />
+          <Image src={user.picture} alt="user picture" width={100} height={100} />
           <p>nickname: {user.nickname}</p>
           <p>name: {user.name}</p>
         </>
