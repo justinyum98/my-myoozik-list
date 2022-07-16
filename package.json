@@ -14,6 +14,7 @@
     "e2e:headless": "start-server-and-test start http://localhost:3000 cypress:headless"
   },
   "dependencies": {
+    "@auth0/nextjs-auth0": "^1.9.1",
     "next": "12.2.2",
     "react": "18.2.0",
     "react-dom": "18.2.0"
