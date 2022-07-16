@@ -1,10 +1,7 @@
-name: Build, test, and deploy push and PRs to main
+name: Build, test, and deploy push to main
 
 on:
   push:
-    branches:
-      - main
-  pull_request:
     branches:
       - main
 
