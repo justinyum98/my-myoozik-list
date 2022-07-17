@@ -1,6 +1,7 @@
 import { defineConfig } from 'cypress';
+import dotenv from 'dotenv';
 
-require('dotenv').config();
+dotenv.config({ path: '.env' });
 
 export default defineConfig({
   e2e: {
@@ -19,6 +20,8 @@ export default defineConfig({
       auth0_client_secret: process.env.AUTH0_CLIENT_SECRET,
       session_cookie_secret: process.env.SESSION_COOKIE_SECRET,
       session_cookie_lifetime: process.env.SESSION_COOKIE_LIFETIME,
+      auth0_test_username: process.env.AUTH0_TEST_USERNAME,
+      auth0_test_password: process.env.AUTH0_TEST_PASSWORD,
     },
   },
 });
