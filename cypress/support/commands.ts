@@ -1,39 +1,58 @@
-/// <reference types="cypress" />
-// ***********************************************
-// This example commands.ts shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-//
-// declare global {
-//   namespace Cypress {
-//     interface Chainable {
-//       login(email: string, password: string): Chainable<void>
-//       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
-//   }
-// }
+// @ts-check
+///<reference path="../global.d.ts" />
+
+import * as jwt from 'jsonwebtoken';
+
+Cypress.Commands.add(
+  'loginByAuth0Api',
+  (username: string, password?: string) => {
+    const log = Cypress.log({
+      displayName: 'AUTH0 LOGIN',
+      message: [`🔐 Authenticating | ${username}`],
+      // @ts-ignore
+      autoEnd: false,
+    });
+
+    const client_id = Cypress.env('next_public_auth0_client_id');
+    const client_secret = Cypress.env('auth0_client_secret');
+    // const audience = Cypress.env('auth0_audience');
+    const scope = Cypress.env('next_public_auth0_scope');
+
+    log.snapshot('before');
+
+    cy.request({
+      method: 'POST',
+      url: `https://${Cypress.env('next_public_auth0_domain')}/oauth/token`,
+      body: {
+        grant_type: 'password',
+        username,
+        password,
+        // audience,
+        scope,
+        client_id,
+        client_secret,
+      },
+    }).then(({ body }) => {
+      const user: any = jwt.decode(body.id_token);
+
+      const userItem = {
+        token: body.access_token,
+        user: {
+          sub: user.sub,
+          nickname: user.nickname,
+          picture: user.name,
+          email: user.email,
+        },
+      };
+
+      window.localStorage.setItem('auth0Cypress', JSON.stringify(userItem));
+
+      log.snapshot('after');
+      log.end();
+    });
+
+    cy.visit('/');
+  }
+);
 
 export {};
