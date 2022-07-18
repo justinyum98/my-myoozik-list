@@ -34,16 +34,12 @@ const Header = ({ user, loading }: HeaderProps) => {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/api/logout">
-                    <a>Logout</a>
-                  </Link>
+                  <a href="/api/auth/logout">Logout</a>
                 </li>
               </>
             ) : (
               <li>
-                <Link href="/api/login">
-                  <a>Login</a>
-                </Link>
+                <a href="/api/auth/login">Login</a>
               </li>
             ))}
         </ul>

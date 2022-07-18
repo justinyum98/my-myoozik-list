@@ -1,17 +1,18 @@
 import Image from 'next/image';
+import { useUser } from '@auth0/nextjs-auth0';
+
 import Layout from '../components/layout';
-import { useFetchUser } from '../lib/user';
 
 const Home = () => {
-  const { user, loading } = useFetchUser();
+  const { user, error, isLoading } = useUser();
 
   return (
-    <Layout user={user} loading={loading}>
+    <Layout user={user} loading={isLoading}>
       <h1>My Myoozik List</h1>
 
-      {loading && <p>Loading login info...</p>}
+      {isLoading && <p>Loading login info...</p>}
 
-      {!loading && !user && (
+      {!isLoading && !user && (
         <>
           <p>
             To test the login click in <i>Login</i>
@@ -26,7 +27,14 @@ const Home = () => {
       {user && (
         <>
           <h4>Rendered user info on the client</h4>
-          <Image src={user.picture} alt="user picture" width={100} height={100} />
+          {user.picture && (
+            <Image
+              src={user.picture}
+              alt="user picture"
+              width={100}
+              height={100}
+            />
+          )}
           <p>nickname: {user.nickname}</p>
           <p>name: {user.name}</p>
         </>

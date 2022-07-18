@@ -1,11 +1,12 @@
+import { useUser } from '@auth0/nextjs-auth0';
+
 import Layout from '../components/layout';
-import { useFetchUser } from '../lib/user';
 
 const About = () => {
-  const { user, loading } = useFetchUser();
+  const { user, error, isLoading } = useUser();
 
   return (
-    <Layout user={user} loading={loading}>
+    <Layout user={user} loading={isLoading}>
       <h1>About</h1>
       <p>
         This is the about page, navigating between this page and <i>Home</i> is

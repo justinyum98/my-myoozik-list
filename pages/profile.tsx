@@ -1,12 +1,12 @@
 // This import is only needed when checking authentication status directly from getInitialProps
 // import auth0 from '../lib/auth0'
 import Image from 'next/image';
-import { useFetchUser } from '../lib/user';
+import { useUser, UserProfile } from '@auth0/nextjs-auth0';
+
 import Layout from '../components/layout';
-import { User } from '../interfaces';
 
 type ProfileCardProps = {
-  user: User;
+  user: UserProfile;
 };
 
 const ProfileCard = ({ user }: ProfileCardProps) => {
@@ -16,7 +16,14 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
 
       <div>
         <h3>Profile (client rendered)</h3>
-        <Image src={user.picture} alt="user picture" width={100} height={100} />
+        {user.picture && (
+          <Image
+            src={user.picture}
+            alt="user picture"
+            width={100}
+            height={100}
+          />
+        )}
         <p>nickname: {user.nickname}</p>
         <p>name: {user.name}</p>
       </div>
@@ -25,11 +32,11 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
 };
 
 const Profile = () => {
-  const { user, loading } = useFetchUser({ required: true });
+  const { user, error, isLoading } = useUser();
 
   return (
-    <Layout user={user} loading={loading}>
-      {loading ? <>Loading...</> : <ProfileCard user={user} />}
+    <Layout user={user} loading={isLoading}>
+      {isLoading ? <>Loading...</> : <ProfileCard user={user!} />}
     </Layout>
   );
 };
