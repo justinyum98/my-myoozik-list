@@ -29,11 +29,6 @@ const Header = ({ user, loading }: HeaderProps) => {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/advanced/ssr-profile">
-                    <a>Server rendered profile (advanced)</a>
-                  </Link>
-                </li>
-                <li>
                   <a href="/api/auth/logout">Logout</a>
                 </li>
               </>
