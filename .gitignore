@@ -9,6 +9,7 @@
 /coverage
 /cypress/videos
 /cypress/screenshots
+/cypress/cypress.env.json
 
 # next.js
 /.next/
@@ -28,7 +29,9 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # local env files
+.env
 .env*.local
+cypress.env.json
 
 # vercel
 .vercel

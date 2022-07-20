@@ -1,11 +1,12 @@
+import { useSession } from 'next-auth/react';
+
 import Layout from '../components/layout';
-import { useFetchUser } from '../lib/user';
 
 const About = () => {
-  const { user, loading } = useFetchUser();
+  const { data: session, status } = useSession();
 
   return (
-    <Layout user={user} loading={loading}>
+    <Layout user={session?.user} loading={status === 'loading'}>
       <h1>About</h1>
       <p>
         This is the about page, navigating between this page and <i>Home</i> is

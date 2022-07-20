@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { signIn, signOut } from 'next-auth/react';
 
 type HeaderProps = {
   user?: any;
@@ -29,21 +30,18 @@ const Header = ({ user, loading }: HeaderProps) => {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/advanced/ssr-profile">
-                    <a>Server rendered profile (advanced)</a>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/api/logout">
-                    <a>Logout</a>
-                  </Link>
+                  <a onClick={() => signOut()}>Sign out</a>
                 </li>
               </>
             ) : (
               <li>
-                <Link href="/api/login">
-                  <a>Login</a>
-                </Link>
+                <a
+                  onClick={() =>
+                    signIn('auth0', undefined, { prompt: 'login' })
+                  }
+                >
+                  Sign in
+                </a>
               </li>
             ))}
         </ul>
