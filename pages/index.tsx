@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 
-import Layout from '../components/layout';
+import Layout from '../src/components/layout';
 
 const Home = () => {
   const { data: session, status } = useSession();

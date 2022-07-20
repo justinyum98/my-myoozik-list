@@ -1,6 +1,6 @@
 import { useSession } from 'next-auth/react';
 
-import Layout from '../components/layout';
+import Layout from '../src/components/layout';
 
 const About = () => {
   const { data: session, status } = useSession();
