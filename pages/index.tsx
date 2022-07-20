@@ -1,9 +1,10 @@
+import type { NextPage } from 'next';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 
-import Layout from '../src/components/layout';
+import Layout from '../src/components/templates/Layout';
 
-const Home = () => {
+const Home: NextPage = () => {
   const { data: session, status } = useSession();
 
   return (

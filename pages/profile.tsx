@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 
-import Layout from '../src/components/layout';
+import Layout from '../src/components/templates/Layout';
 
 type ProfileCardProps = {
   user: {
