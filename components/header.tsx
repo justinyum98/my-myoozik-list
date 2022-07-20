@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { signIn, signOut } from 'next-auth/react';
 
 type HeaderProps = {
   user?: any;
@@ -29,12 +30,18 @@ const Header = ({ user, loading }: HeaderProps) => {
                   </Link>
                 </li>
                 <li>
-                  <a href="/api/auth/logout">Logout</a>
+                  <a onClick={() => signOut()}>Sign out</a>
                 </li>
               </>
             ) : (
               <li>
-                <a href="/api/auth/login">Login</a>
+                <a
+                  onClick={() =>
+                    signIn('auth0', undefined, { prompt: 'login' })
+                  }
+                >
+                  Sign in
+                </a>
               </li>
             ))}
         </ul>

@@ -1,12 +1,16 @@
 // This import is only needed when checking authentication status directly from getInitialProps
 // import auth0 from '../lib/auth0'
 import Image from 'next/image';
-import { useUser, UserProfile } from '@auth0/nextjs-auth0';
+import { useSession } from 'next-auth/react';
 
 import Layout from '../components/layout';
 
 type ProfileCardProps = {
-  user: UserProfile;
+  user: {
+    name?: string | null | undefined;
+    email?: string | null | undefined;
+    image?: string | null | undefined;
+  };
 };
 
 const ProfileCard = ({ user }: ProfileCardProps) => {
@@ -16,27 +20,26 @@ const ProfileCard = ({ user }: ProfileCardProps) => {
 
       <div>
         <h3>Profile (client rendered)</h3>
-        {user.picture && (
-          <Image
-            src={user.picture}
-            alt="user picture"
-            width={100}
-            height={100}
-          />
+        {user.image && (
+          <Image src={user.image} alt="user picture" width={100} height={100} />
         )}
-        <p>nickname: {user.nickname}</p>
         <p>name: {user.name}</p>
+        <p>email: {user.email}</p>
       </div>
     </>
   );
 };
 
 const Profile = () => {
-  const { user, error, isLoading } = useUser();
+  const { data: session, status } = useSession();
 
   return (
-    <Layout user={user} loading={isLoading}>
-      {isLoading ? <>Loading...</> : <ProfileCard user={user!} />}
+    <Layout user={session?.user} loading={status === 'loading'}>
+      {status === 'loading' ? (
+        <>Loading...</>
+      ) : (
+        <ProfileCard user={session?.user!} />
+      )}
     </Layout>
   );
 };

@@ -1,12 +1,12 @@
-import { useUser } from '@auth0/nextjs-auth0';
+import { useSession } from 'next-auth/react';
 
 import Layout from '../components/layout';
 
 const About = () => {
-  const { user, error, isLoading } = useUser();
+  const { data: session, status } = useSession();
 
   return (
-    <Layout user={user} loading={isLoading}>
+    <Layout user={session?.user} loading={status === 'loading'}>
       <h1>About</h1>
       <p>
         This is the about page, navigating between this page and <i>Home</i> is

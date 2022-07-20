@@ -1,18 +1,18 @@
 import Image from 'next/image';
-import { useUser } from '@auth0/nextjs-auth0';
+import { useSession } from 'next-auth/react';
 
 import Layout from '../components/layout';
 
 const Home = () => {
-  const { user, error, isLoading } = useUser();
+  const { data: session, status } = useSession();
 
   return (
-    <Layout user={user} loading={isLoading}>
+    <Layout user={session?.user} loading={status === 'loading'}>
       <h1>My Myoozik List</h1>
 
-      {isLoading && <p>Loading login info...</p>}
+      {status === 'loading' && <p>Loading login info...</p>}
 
-      {!isLoading && !user && (
+      {!(status === 'loading') && !session?.user && (
         <>
           <p>
             To test the login click in <i>Login</i>
@@ -24,19 +24,19 @@ const Home = () => {
         </>
       )}
 
-      {user && (
+      {session?.user && (
         <>
           <h4>Rendered user info on the client</h4>
-          {user.picture && (
+          {session?.user.image && (
             <Image
-              src={user.picture}
+              src={session?.user.image!}
               alt="user picture"
               width={100}
               height={100}
             />
           )}
-          <p>nickname: {user.nickname}</p>
-          <p>name: {user.name}</p>
+          <p>name: {session?.user.name}</p>
+          <p>email: {session?.user.email}</p>
         </>
       )}
     </Layout>
