@@ -29,15 +29,17 @@ jobs:
       - name: Create .env file
         run: |
           touch .env
+          echo AUTH0_ISSUER_BASE_URL=${{ secrets.AUTH0_ISSUER_BASE_URL }} >> .env
+          echo AUTH0_CLIENT_ID=${{ secrets.AUTH0_CLIENT_ID }} >> .env
           echo AUTH0_CLIENT_SECRET=${{ secrets.AUTH0_CLIENT_SECRET }} >> .env
-          echo NEXT_PUBLIC_AUTH0_CLIENT_ID=${{ secrets.NEXT_PUBLIC_AUTH0_CLIENT_ID }} >> .env
-          echo NEXT_PUBLIC_AUTH0_DOMAIN=${{ secrets.NEXT_PUBLIC_AUTH0_DOMAIN }} >> .env
-          echo NEXT_PUBLIC_AUTH0_SCOPE=${{ secrets.NEXT_PUBLIC_AUTH0_SCOPE }} >> .env
-          echo NEXT_PUBLIC_BASE_URL=${{ secrets.NEXT_PUBLIC_BASE_URL }} >> .env
-          echo NEXT_PUBLIC_POST_LOGOUT_REDIRECT_URI=${{ secrets.NEXT_PUBLIC_POST_LOGOUT_REDIRECT_URI }} >> .env
-          echo NEXT_PUBLIC_REDIRECT_URI=${{ secrets.NEXT_PUBLIC_REDIRECT_URI }} >> .env
-          echo SESSION_COOKIE_LIFETIME=${{ secrets.SESSION_COOKIE_LIFETIME }} >> .env
-          echo SESSION_COOKIE_SECRET=${{ secrets.SESSION_COOKIE_SECRET }} >> .env
+          echo NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }} >> .env
+          echo NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }} >> .env
+      - name: Create cypress.env.json file
+        id: create-json
+        uses: jsdaniell/create-json@1.1.2
+        with:
+          name: 'cypress.env.json'
+          json: ${{ secrets.CYPRESS_ENV_JSON }}
       - name: Build and run E2E tests
         uses: cypress-io/github-action@v4
         with:
