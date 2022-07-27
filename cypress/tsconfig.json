@@ -1,7 +1,6 @@
 {
   "extends": "../tsconfig.json",
   "include": ["./**/*.ts"],
-  "exclude": [],
   "compilerOptions": {
     "types": ["cypress", "@testing-library/cypress"],
     "lib": ["es2015", "dom"],
