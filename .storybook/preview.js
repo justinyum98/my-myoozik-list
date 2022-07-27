@@ -1,4 +1,10 @@
 import { themes } from '@storybook/theming';
+import { addDecorator } from '@storybook/react';
+import { ThemeProvider } from '@mui/material/styles';
+
+import theme from '../src/theme';
+
+addDecorator((story) => <ThemeProvider theme={theme}>{story()}</ThemeProvider>);
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
